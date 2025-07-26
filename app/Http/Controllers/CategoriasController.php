@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriasController extends Controller
 {
@@ -10,7 +12,9 @@ class CategoriasController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view("modules.categorias.index");
+        $titulo = "Administrar Categorías";
+        $items = Categoria::all();
+        return view("modules.categorias.index", compact('titulo', 'items'));
     }
 
     /**
@@ -18,7 +22,8 @@ class CategoriasController extends Controller
      */
     public function create()
     {
-        //
+        $titulo = "Crear Categoría";
+        return view('modules.categorias.create', compact('titulo'));
     }
 
     /**
@@ -26,7 +31,11 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Categoria();
+        $item->user_id = Auth::user()->id;
+        $item->nombre = $request->nombre;
+        $item->save();
+        return to_route('categorias');
     }
 
     /**
@@ -34,7 +43,9 @@ class CategoriasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $titulo = "Eliminar Categoría";
+        $item = Categoria::find($id);
+        return view('modules.categorias.show', compact('item', 'titulo'));
     }
 
     /**
@@ -42,7 +53,9 @@ class CategoriasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $titulo = 'Editar Categoría';
+        $item =Categoria::find($id);
+        return view('modules.categorias.edit', compact('item', 'titulo'));
     }
 
     /**
@@ -50,7 +63,10 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = Categoria::find($id);
+        $item->nombre = $request->nombre;
+        $item->save();
+        return to_route('categorias');
     }
 
     /**
@@ -58,6 +74,8 @@ class CategoriasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Categoria::find($id);
+        $item->delete();
+        return to_route('categorias');
     }
 }

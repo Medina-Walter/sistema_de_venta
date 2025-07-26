@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -10,7 +12,9 @@ class UsuariosController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view("modules.usuarios.index");
+        $titulo = "Usuarios";
+        $items = User::all();
+        return view("modules.usuarios.index", compact('titulo', 'items'));
     }
 
     /**
@@ -18,7 +22,8 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        //
+        $titulo = "Crear Usuario";
+        return view('modules.usuarios.create', compact('titulo'));
     }
 
     /**
@@ -26,7 +31,15 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'activo' =>true,
+            'rol' => $request->rol
+        ]);
+
+        return to_route('usuarios');
     }
 
     /**
@@ -42,7 +55,9 @@ class UsuariosController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $titulo = "Editar Usuario";
+        $item = User::find($id);
+        return view('modules.usuarios.edit', compact('titulo', 'item'));
     }
 
     /**
@@ -50,7 +65,12 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = User::find($id);
+        $item->name = $request->name;
+        $item->email = $request->email;
+        $item->rol = $request->rol;
+        $item->save();
+        return to_route('usuarios');    
     }
 
     /**
@@ -59,5 +79,11 @@ class UsuariosController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function tbody()
+    {
+        $items = User::all();
+        return view('modules.usuarios.tbody', compact('items'));
     }
 }

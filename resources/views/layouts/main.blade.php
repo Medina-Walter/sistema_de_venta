@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>@yield('titulo')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,14 +28,6 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('NiceAdmin/assets/css/style.css')}}" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -48,7 +40,7 @@
   @include('shared.aside')
   <!-- End Sidebar-->
 
-  <!-- End #main -->
+  @yield('contenido')
 
   <!-- ======= Footer ======= -->
   @include('shared.footer')
@@ -66,9 +58,12 @@
   <script src="{{ asset('NiceAdmin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('NiceAdmin/assets/vendor/php-email-form/validate.js')}}"></script>
 
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
   <!-- Template Main JS File -->
   <script src="{{ asset('NiceAdmin/assets/js/main.js')}}"></script>
+  @stack('scripts')
 
 </body>
-
 </html>

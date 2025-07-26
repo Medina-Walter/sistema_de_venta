@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ClientesController extends Controller
 {
@@ -10,7 +11,9 @@ class ClientesController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view("modules.clintes.index");
+        $titulo = "Usuarios";
+        $items = User::all();
+        return view("modules.clintes.index", compact('titulo', 'items'));
     }
 
     /**
