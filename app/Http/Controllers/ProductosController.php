@@ -10,7 +10,8 @@ class ProductosController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view("modules.productos.index");
+        $titulo = "Productos";
+        return view("modules.productos.index", compact('titulo'));
     }
 
     /**

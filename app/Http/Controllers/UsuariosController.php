@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
@@ -31,7 +32,8 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        User::create([
+        try {
+            User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -39,7 +41,11 @@ class UsuariosController extends Controller
             'rol' => $request->rol
         ]);
 
-        return to_route('usuarios');
+        return to_route('usuarios')->with('success', 'Usuario guardado  con Exito!');
+
+        } catch (Exception $e) {
+            return to_route('usuarios')->with('success', 'No se pudo guardar el Usuario!' . $e->getMessage());
+        }
     }
 
     /**
@@ -65,12 +71,16 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $item = User::find($id);
-        $item->name = $request->name;
-        $item->email = $request->email;
-        $item->rol = $request->rol;
-        $item->save();
-        return to_route('usuarios');    
+        try {
+            $item = User::find($id);
+            $item->name = $request->name;
+            $item->email = $request->email;
+            $item->rol = $request->rol;
+            $item->save();
+            return to_route('usuarios')->with('success', 'Usuario actualizado con Exito!');
+        } catch (Exception $e) {
+            return to_route('usuarios')->with('success', 'Error al actualizar el usuario!' . $e->getMessage());
+        }    
     }
 
     /**
@@ -86,4 +96,13 @@ class UsuariosController extends Controller
         $items = User::all();
         return view('modules.usuarios.tbody', compact('items'));
     }
+
+    public function estado($id, $estado)
+    {
+        $item = User::find($id);
+        $item->activo = $estado;
+        return $item->save();
+    }
+
+    
 }

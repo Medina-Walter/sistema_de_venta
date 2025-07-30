@@ -42,4 +42,5 @@
       </div>
     </section>
   </main>
+  @include('modules.usuarios.modal_cambiar_password')
 @endsection
