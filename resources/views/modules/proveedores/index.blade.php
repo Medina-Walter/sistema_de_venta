@@ -31,7 +31,7 @@
                     <th class="text-center">CP</th>
                     <th class="text-center">Sitio Web</th>
                     <th class="text-center">Nota</th>
-                    <th>
+                    <th class="text-center">
                       Acciones
                     </th>
                   </tr>
@@ -45,7 +45,6 @@
                       <td>{{ $item->cp }}</td>
                       <td>{{ $item->sitio_web }}</td>
                       <td>{{ $item->notas }}</td>
-                     <td>{{ $item->nombre }}</td>
                      <td>
                       <a href="{{ route("proveedores.edit", $item->id) }}" class="btn btn-warning btn-sm">Editar</a>
                       <a href="{{ route("proveedores.show", $item->id) }}" class="btn btn-danger btn-sm">Eliminar</a>

@@ -44,7 +44,7 @@ class UsuariosController extends Controller
         return to_route('usuarios')->with('success', 'Usuario guardado  con Exito!');
 
         } catch (Exception $e) {
-            return to_route('usuarios')->with('success', 'No se pudo guardar el Usuario!' . $e->getMessage());
+            return to_route('usuarios')->with('error', 'No se pudo guardar el Usuario!' . $e->getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ class UsuariosController extends Controller
             $item->save();
             return to_route('usuarios')->with('success', 'Usuario actualizado con Exito!');
         } catch (Exception $e) {
-            return to_route('usuarios')->with('success', 'Error al actualizar el usuario!' . $e->getMessage());
+            return to_route('usuarios')->with('error', 'Error al actualizar el usuario!' . $e->getMessage());
         }    
     }
 
@@ -104,5 +104,9 @@ class UsuariosController extends Controller
         return $item->save();
     }
 
-    
+    public function cambio_password($id, $password){
+        $item = User::find($id);
+        $item->password = Hash::make($password);
+        return $item->save();
+    }
 }

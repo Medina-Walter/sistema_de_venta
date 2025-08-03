@@ -42,7 +42,7 @@ class ProveedoresController extends Controller
             $item->save();
             return to_route('proveedores')->with("success", "Proveedor agregado con Exito!");
         } catch (Exception $e) {
-            return to_route('proveedores')->with("success", "Proveedor agregado con Exito!" . $e->getMessage());
+            return to_route('proveedores')->with("error", "Proveedor agregado con Exito!" . $e->getMessage());
         }
     }
 
@@ -63,7 +63,7 @@ class ProveedoresController extends Controller
     {
         $item = Proveedores::find($id);
         $titulo = "Editar Proveedores";
-        return view('modules.proveedores.edit');
+        return view('modules.proveedores.edit', compact('titulo', 'item'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ProveedoresController extends Controller
             $item->save();
             return to_route('proveedores')->with("success", "Proveedor Actualizado con Exito!");
         } catch (Exception $e) {
-            return to_route('proveedores')->with("success", "No se pudo Actualizar!" . $e->getMessage());
+            return to_route('proveedores')->with("error", "No se pudo Actualizar!" . $e->getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ class ProveedoresController extends Controller
             $item->delete();
             return to_route('proveedores')->with("success", "Proveedor Eliminado con Exito!");
         } catch (Exception $e) {
-            return to_route('proveedores')->with("success", "No se pudo Eliminar!" . $e->getMessage());
+            return to_route('proveedores')->with("error", "No se pudo Eliminar!" . $e->getMessage());
         }
     }
 }

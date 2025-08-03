@@ -37,22 +37,22 @@
                 </thead>
                 <tbody>
                     <tr class="text-center">
-                      <td>{{ $item->nombre }}</td>
-                      <td>{{ $item->telefono }}</td>
-                      <td>{{ $item->email }}</td>
-                      <td>{{ $item->cp }}</td>
-                      <td>{{ $item->sitio_web }}</td>
-                      <td>{{ $item->notas }}</td>
-                     <td>{{ $item->nombre }}</td>
+                      <td>{{ $items->nombre }}</td>
+                      <td>{{ $items->telefono }}</td>
+                      <td>{{ $items->email }}</td>
+                      <td>{{ $items->cp }}</td>
+                      <td>{{ $items->sitio_web }}</td>
+                      <td>{{ $items->notas }}</td>
+                     <td>{{ $items->nombre }}</td>
                      <td>
-                      <a href="{{ route("proveedores.edit", $item->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                      <a href="{{ route("proveedores.show", $item->id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+                      <a href="{{ route("proveedores.edit", $items->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                      <a href="{{ route("proveedores.show", $items->id) }}" class="btn btn-danger btn-sm">Eliminar</a>
                      </td>
                     </tr>
                 </tbody>
               </table>
               <hr>
-              <form action="{{ route("proveedores.destroy", $item->id) }}" method = "POST">
+              <form action="{{ route("proveedores.destroy", $items->id) }}" method = "POST">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger mt-3">Eliminar Proveedor</button>

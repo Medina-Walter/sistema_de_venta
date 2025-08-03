@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('proveedor_id')->constrained('proveedores');
-            $table->foreignId('categorias_id')->constrained('categorias');
+            $table->foreignId('categoria_id')->constrained('categorias');
+            $table->string('codigo');
             $table->string('nombre', 255);
             $table->string('descripcion', 255)->nullable();
             $table->integer('cantidad')->default(0);
