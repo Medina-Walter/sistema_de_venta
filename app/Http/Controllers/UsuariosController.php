@@ -104,9 +104,16 @@ class UsuariosController extends Controller
         return $item->save();
     }
 
-    public function cambio_password($id, $password){
-        $item = User::find($id);
-        $item->password = Hash::make($password);
-        return $item->save();
+    public function cambio_password(Request $request){
+    try {
+        $item = User::findOrFail($request->id_usuario);
+        $item->password = Hash::make($request->password);
+        $item->save();
+
+     return to_route('usuarios')->with('success', 'Contraseña actualizada correctamente!');
+        } catch (Exception $e) {
+     return to_route('usuarios')->with('error', 'Error al actualizar la contraseña: ' . $e->getMessage());
+        }
     }
+
 }

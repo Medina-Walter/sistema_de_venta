@@ -4,13 +4,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Categorías</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Categorías</li>
-        </ol>
-      </nav>
+      <h1>Detalle de Ventas Realizadas</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -25,10 +19,9 @@
                     <th class="text-center">Total Vendido</th>
                     <th class="text-center">Fecha de Venta</th>
                     <th class="text-center">Usuario</th>
-                    <th class="text-center">Revocar Venta</th>
-                    <th class="text-center">
-                      Acciones
-                    </th>
+                    <th class="text-center">Ver Detalle</th>
+                    <th class="text-center">Imprimir Ticket</th>
+                    <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,8 +31,18 @@
                      <td class="text-center">{{ $item->created_at }}</td>
                      <td class="text-center">{{ $item->nombre_usuario }}</td>
                      <td class="text-center">
-                      <a href="{{ route("categorias.edit", $item->id) }}" class="btn btn-info">Detalle</a>
-                      <a href="{{ route("categorias.show", $item->id) }}" class="btn btn-danger">Revocar Venta</a>
+                      <a href="{{ route("detalle.vista.detalle", $item->id) }}" class="btn btn-info">Detalle</a>
+                     </td>
+                     <td>
+                      <a target="blank" href="{{ route("detalle.ticket", $item->id) }}" class="btn btn-success">Imprimir</a>
+                     </td>
+                     <td class="text-center">   
+                      <form action="{{ route('detalle.revocar', $item->id) }}" method="POST" 
+                        onsubmit="return confirm('¿Estas Seguro de Revocar la Venta?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">Revocar</button>
+                      </form>
                      </td>
                     </tr>
                   @endforeach

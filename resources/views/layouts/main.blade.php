@@ -31,6 +31,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('NiceAdmin/assets/css/style.css')}}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -80,8 +82,8 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
-
-       new DataTable('.datatable', {
+    new DataTable('.datatable', {
+      ordering: false,
         layout: {
           topStart: {
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
@@ -104,13 +106,13 @@
       @if(session('error'))
       Swal.fire({
         title:'Error!',
-        text: '{{ session('success') }}',
+        text: '{{ session('error') }}',
         icon: 'error',
         confirmButtonText: 'Aceptar'
       });
       @endif
-    </script>
-  @stack('scripts')
+</script>
+@stack('scripts')
 
 </body>
 </html>

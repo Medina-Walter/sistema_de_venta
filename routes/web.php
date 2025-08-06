@@ -26,7 +26,7 @@ Route::middleware("auth")->group(function(){
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::prefix('categorias')->group(function(){
+Route::prefix('categorias')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [CategoriasController::class, 'index'])->name('categorias');
     Route::get('/create', [CategoriasController::class, 'create'])->name('categorias.create');
     Route::post('/store', [CategoriasController::class, 'store'])->name('categorias.store');
@@ -37,7 +37,7 @@ Route::prefix('categorias')->group(function(){
     });
 
 
-Route::prefix('/proveedores')->middleware('auth')->group(function(){
+Route::prefix('/proveedores')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [ProveedoresController::class, 'index'])->name('proveedores');
     Route::get('/create', [ProveedoresController::class, 'create'])->name('proveedores.create');
     Route::post('/store', [ProveedoresController::class, 'store'])->name('proveedores.store');
@@ -47,7 +47,7 @@ Route::prefix('/proveedores')->middleware('auth')->group(function(){
     Route::delete('/destroy/{id}', [ProveedoresController::class, 'destroy'])->name('proveedores.destroy');
 });
 
-Route::prefix('/productos')->middleware('auth')->group(function(){
+Route::prefix('/productos')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [ProductosController::class, 'index'])->name('productos');
     Route::get('/create', [ProductosController::class, 'create'])->name('productos.create');
     Route::post('/store', [ProductosController::class, 'store'])->name('productos.store');
@@ -63,13 +63,13 @@ Route::prefix('/productos')->middleware('auth')->group(function(){
     Route::get('/cambiar-estado/{id}/{estado}', [ProductosController::class, 'estado'])->name('productos.estado');
 });
 
-Route::prefix('/reportes_productos')->middleware('auth')->group(function(){
+Route::prefix('/reportes_productos')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [Reportes_productos::class, 'index'])->name('reportes_productos');
     Route::get('/falta-stock', [Reportes_productos::class, 'falta_stock'])->name('reportes_productos.falta_stock');
 });
 
 
-Route::prefix('usuarios')->middleware('auth')->group(function(){
+Route::prefix('usuarios')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [UsuariosController::class, 'index'])->name('usuarios');
     Route::get('/create', [UsuariosController::class, 'create'])->name('usuarios.create');
     Route::post('/store', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -77,7 +77,7 @@ Route::prefix('usuarios')->middleware('auth')->group(function(){
     Route::put('/update/{id}', [UsuariosController::class, 'update'])->name('usuarios.update');
     Route::get('/tbody', [UsuariosController::class, 'tbody'])->name('usuarios.tbody');
     Route::get('/cambiar-estado/{id}/{estado}', [UsuariosController::class, 'estado'])->name('usuarios.estado');
-    Route::get('/cambiar-password/{id}/{password}', [UsuariosController::class, 'cambio_password'])->name('usuarios.password');
+    Route::post('/usuarios/cambiar-password', [UsuariosController::class, 'cambio_password'])->name('usuarios.cambio_password');
 });
 
 
@@ -92,9 +92,12 @@ Route::prefix('ventas')->middleware('auth')->group(function(){
 
 Route::prefix('detalle')->group(function(){
     Route::get('/detalle-venta', [DetalleVentasController::class, 'index'])->name('detalle-venta');
+    Route::get('/vista-detalle/{id_venta}', [DetalleVentasController::class, 'vista_detalle'])->name('detalle.vista.detalle');
+    Route::delete('/revocar/{id_venta}', [DetalleVentasController::class, 'revocar'])->name('detalle.revocar');
+    Route::get('/ticket/{id_venta}', [DetalleVentasController::class, 'generarTicket'])->name('detalle.ticket');
 });
 
-Route::prefix('compras')->middleware('auth')->group(function(){
+Route::prefix('compras')->middleware('auth', 'Checkrol:admin')->group(function(){
     Route::get('/', [ComprasController::class, 'index'])->name('compras');
     Route::get('/create/{id_producto}', [ComprasController::class, 'create'])->name('compras.create');
     Route::post('/store', [ComprasController::class, 'store'])->name('compras.store');

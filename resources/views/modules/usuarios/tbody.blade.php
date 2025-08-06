@@ -4,7 +4,7 @@
         <td>{{ $item->email }}</td>
         <td>{{ $item->rol }}</td>
         <td>
-            <a href="#" onclick="agregar_id_usuario({{ $item->id }})" 
+            <a href="" onclick="agregar_id_usuario({{ $item->id }})" 
             class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cambiar_password">Cambiar Contraseña
         </td>
         <td class="text-center">
